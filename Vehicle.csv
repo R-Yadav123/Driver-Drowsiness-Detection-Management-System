@@ -1,0 +1,51 @@
+Vehicle_ID,Driver_ID,Model,Make,Year,License_Plate_Num,Vehicle_Type
+1,1,Model S,Ford,2022,DFZ4089,SUV
+2,2,Corolla,Tesla,2016,GNB4980,Sports
+3,3,RAV4,Honda,2016,JHK8234,Truck
+4,4,RAV4,Ford,2015,ITT2600,Sports
+5,5,Civic,Chevrolet,2019,SLJ1900,Sedan
+6,6,Camry,Toyota,2021,EEV9928,Truck
+7,7,Model S,Toyota,2010,TDG8186,Sedan
+8,8,Model S,Ford,2012,AVO4838,SUV
+9,9,Civic,Toyota,2013,WSN4926,Truck
+10,10,Model S,Toyota,2019,IAZ7114,Truck
+11,11,Model S,Chevrolet,2021,GFR5666,Sedan
+12,12,Accord,Ford,2011,DNG2791,Sports
+13,13,Camry,Ford,2011,EWY2447,Sports
+14,14,Corolla,Honda,2021,UPU2287,SUV
+15,15,Camry,Ford,2017,HHV3982,Sports
+16,16,Camry,Tesla,2017,HWO1999,SUV
+17,17,Model S,Ford,2020,PPI5261,Sports
+18,18,F-150,Tesla,2012,SGP4617,SUV
+19,19,F-150,Tesla,2016,TTM5190,Sports
+20,20,Mustang,Chevrolet,2013,ZZY7107,Truck
+21,21,Corolla,Tesla,2023,FXC5294,Truck
+22,22,F-150,Ford,2017,QTR5307,Truck
+23,23,F-150,Toyota,2023,FNW9021,SUV
+24,24,Camry,Honda,2019,PMK9958,Sports
+25,25,Corolla,Ford,2014,HVU9820,SUV
+26,26,F-150,Chevrolet,2011,SUK4411,Truck
+27,27,Corolla,Chevrolet,2011,RGS5286,Sedan
+28,28,Model S,Honda,2010,DEI2020,Truck
+29,29,RAV4,Ford,2010,XOX3808,Truck
+30,30,Civic,Tesla,2011,OKH5014,Sedan
+31,31,Civic,Toyota,2011,QCM7740,Truck
+32,32,Accord,Chevrolet,2013,NBR4745,Sports
+33,33,Model S,Toyota,2010,EHO7633,Truck
+34,34,Camry,Toyota,2014,XXA4844,Truck
+35,35,Mustang,Chevrolet,2014,QBP0822,SUV
+36,36,RAV4,Toyota,2019,DRZ0851,Sedan
+37,37,Model S,Tesla,2010,RQI0311,Sports
+38,38,Model S,Honda,2012,KLZ2486,Sports
+39,39,Model S,Tesla,2021,CFL5182,Sedan
+40,40,Accord,Tesla,2022,YBD7772,Sedan
+41,41,Model S,Chevrolet,2010,IPC1457,SUV
+42,42,Mustang,Honda,2017,RQT6089,Sports
+43,43,Corolla,Chevrolet,2020,FDL6228,Sports
+44,44,Civic,Tesla,2011,OQR1277,Sports
+45,45,F-150,Toyota,2023,NDA4124,Sedan
+46,46,RAV4,Chevrolet,2017,ZBH3596,Truck
+47,47,Accord,Honda,2019,FZF3435,Sports
+48,48,RAV4,Tesla,2023,HKJ8057,Sedan
+49,49,RAV4,Tesla,2019,JWR5087,Truck
+50,50,RAV4,Toyota,2019,ZTP0453,SUV
