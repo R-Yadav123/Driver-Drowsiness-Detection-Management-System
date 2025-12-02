@@ -6,6 +6,7 @@ import sqlite3
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 conn = sqlite3.connect('Driver_Management.db')
 print("\nOpened database successfully")
@@ -231,7 +232,7 @@ df_trip['Duration_Hours'] = (df_trip['Time_Ended'] - df_trip['Time_Started']).dt
 # merging the trips and driver's information 
 merged = df_trip.merge(df_driver, left_on='Driver_ID', right_on='ID')
 
-# Scatter Plot: Miles Traveled Vs. Trip Duration
+# Scatter Plot: Miles Traveled vs. Trip Duration
 plt.figure(figsize=(10,6))
 plt.scatter(merged['Duration_Hours'], merged['Miles_Traveled'], alpha=0.8)
 plt.xlabel('Trip Duration in Hours')
@@ -280,7 +281,7 @@ models = merged_df['Model'].unique()
 data_to_plot = [merged_df['Age'][merged_df['Model'] == model] for model in models]
 
 plt.figure(figsize=(10, 7))
-plt.boxplot(data_to_plot, labels=models) # Pass the list of data and labels for x-axis
+plt.boxplot(data_to_plot, tick_labels=models) # Pass the list of data and labels for x-axis
 
 plt.title('Age Distribution by Vehicle Model')
 plt.xlabel('Vehicle Model')
@@ -290,5 +291,50 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout() # Adjust layout to prevent labels from being cut off
 plt.show()
 
-# TO DO: 
-#create a prediction model (use training/testing data)
+# Creation of a prediction model
+# Training Data: Driver_Drowsiness_Event.csv
+# Testing Data: Driver_Drowsiness_Event_Testing_Dataset.csv
+
+# The testing data has removed the column "Alert_Sent" as that it what is going to be predicted (boolean values).
+# Alert Sent = 1 (true)
+# Alert Not Sent = 0 (false)
+
+df_event['Timestamp'] = pd.to_datetime(df_event['Timestamp'])
+
+# time-based features
+df_event['Hour'] = df_event['Timestamp'].dt.hour
+df_event['Day_of_Week'] = df_event['Timestamp'].dt.dayofweek
+df_event['Month'] = df_event['Timestamp'].dt.month
+print("Data Subset Head (5 rows): \n")
+print(df_event.head())
+
+features = ['Level_Of_Drowsiness', 'Hour', 'Day_of_Week', 'Month']
+x_train = df_event[features]
+y_train = df_event['Alert_Sent']
+
+# Fitting a model with linear regression
+model = LinearRegression()
+model.fit(x_train, y_train)
+
+# Testing data
+test_data = pd.read_csv("Driver_Drowsiness_Event_Testing_Dataset.csv")
+test_data['Timestamp'] = pd.to_datetime(test_data['Timestamp'])
+test_data['Hour'] = test_data['Timestamp'].dt.hour
+test_data['Day_of_Week'] = test_data['Timestamp'].dt.dayofweek
+test_data['Month'] = test_data['Timestamp'].dt.month
+
+x_test = test_data[features]
+
+y_test_prediction = model.predict(x_test)
+
+# Converting the predictions to 0/1 using a 0.5 threshold
+y_prediction = (y_test_prediction >= 0.5).astype(int)
+test_data['Predicted_Alert'] = y_prediction
+print(" ")
+print("Predictions: \n")
+print(test_data[['Event_ID', 'Driver_ID', 'Level_Of_Drowsiness', 'Predicted_Alert']])
+
+print(" ")
+print("Model Accuracy: ")
+accuracy = (y_prediction == y_train).mean() * 100
+print(f"Accuracy: {accuracy:.2f}%")
