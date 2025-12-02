@@ -5,6 +5,7 @@
 import sqlite3
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
 
 conn = sqlite3.connect('Driver_Management.db')
 print("\nOpened database successfully")
@@ -218,5 +219,76 @@ print(df_result)
 
 print(" ")
 
+# Plots
+
+df_trip['Time_Started'] = pd.to_datetime(df_trip['Time_Started'])
+df_trip['Time_Ended'] = pd.to_datetime(df_trip['Time_Ended'])
+
+
+# Finding the trip duration hours
+df_trip['Duration_Hours'] = (df_trip['Time_Ended'] - df_trip['Time_Started']).dt.total_seconds() / 3600
+
+# merging the trips and driver's information 
+merged = df_trip.merge(df_driver, left_on='Driver_ID', right_on='ID')
+
+# Scatter Plot: Miles Traveled Vs. Trip Duration
+plt.figure(figsize=(10,6))
+plt.scatter(merged['Duration_Hours'], merged['Miles_Traveled'], alpha=0.8)
+plt.xlabel('Trip Duration in Hours')
+plt.ylabel('Miles Traveled')
+plt.title('Miles Traveled Vs. Trip Duration')
+plt.grid(True)
+plt.show()
+
+# Bar Plot: Count of vehicles by model 
+model_counts = df_vehicle['Model'].value_counts()
+
+plt.figure(figsize=(10,6))
+model_counts.plot(kind='bar', color='orange', edgecolor='black')
+plt.xlabel('Vehicle Model')
+plt.ylabel('Number of Vehicles')
+plt.title('Number of Vehicles per Model')
+plt.xticks(rotation=45)
+plt.show()
+
+# Bar Plot: Count of vehicles by vehicle type
+model_counts = df_vehicle['Vehicle_Type'].value_counts()
+
+plt.figure(figsize=(10,6))
+model_counts.plot(kind='bar', color='lightblue', edgecolor='black')
+plt.xlabel('Vehicle Type')
+plt.ylabel('Number of Vehicles')
+plt.title('Number of Vehicles per Vehicle Type')
+plt.xticks(rotation=45)
+plt.show()
+
+
+# Scatter Plot: Age vs. Daily Avg Driving Hours
+plt.scatter(df_driver['Age'], df_driver['Daily_Average_Driving_Hours'], color='purple', alpha=0.7)
+plt.xlabel('Driver Age')
+plt.ylabel('Daily Average Driving Hours')
+plt.title('Driver Age vs Daily Average Driving Hours')
+plt.show()
+
+# Boxplot: Age vs. Model 
+merged_df = pd.merge(df_driver, df_vehicle, left_on='ID', right_on = 'Driver_ID', how = 'inner')
+
+# Get unique models
+models = merged_df['Model'].unique()
+
+# Create a list of age arrays, one for each model
+data_to_plot = [merged_df['Age'][merged_df['Model'] == model] for model in models]
+
+plt.figure(figsize=(10, 7))
+plt.boxplot(data_to_plot, labels=models) # Pass the list of data and labels for x-axis
+
+plt.title('Age Distribution by Vehicle Model')
+plt.xlabel('Vehicle Model')
+plt.ylabel('Age')
+plt.xticks(rotation=45, ha='right') # Rotate labels if they overlap
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout() # Adjust layout to prevent labels from being cut off
+plt.show()
+
 # TO DO: 
-#plots and create a prediction model (training/testing data)
+#create a prediction model (use training/testing data)
