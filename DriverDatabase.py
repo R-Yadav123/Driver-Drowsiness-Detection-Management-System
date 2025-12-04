@@ -291,6 +291,18 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout() # Adjust layout to prevent labels from being cut off
 plt.show()
 
+#creating more plots in order to really perform the analysis/goal which is driver drowsiness
+
+plt.figure(figsize=(15,5))  
+
+plt.hist(df_event['Level_Of_Drowsiness'], bins = 6, color = 'pink', edgecolor = 'brown')
+plt.ylabel('Occurrences')
+plt.xlabel('Drowsiness Level')
+
+plt.title("The Distribution of Drowsiness Levels")
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.show()
+
 # Creation of a prediction model
 # Training Data: Driver_Drowsiness_Event.csv
 # Testing Data: Driver_Drowsiness_Event_Testing_Dataset.csv
